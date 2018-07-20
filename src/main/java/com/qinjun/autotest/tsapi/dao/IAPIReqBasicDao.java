@@ -16,5 +16,5 @@ public interface IAPIReqBasicDao {
     List<APIReqBasic> findByAPI(API api);
     List<APIReqBasic> findByAPIId(Long id);
     APIReqBasic findUniqByAPI(API api);
-    APIReqBasic findUidByAPIId(Long id);
+    APIReqBasic findUniqByAPIId(Long id);
 }

@@ -10,51 +10,63 @@ import java.util.List;
 public class APIResHeaderDaoImpl extends HibernateDaoSupport implements IAPIResHeaderDao {
     @Override
     public APIResHeader get(Long id) {
-        return null;
+        return getHibernateTemplate().get(APIResHeader.class,id);
     }
 
     @Override
     public Long save(APIResHeader apiResHeader) {
-        return null;
+        return (Long)  getHibernateTemplate().save(apiResHeader);
     }
 
     @Override
     public void update(APIResHeader apiResHeader) {
-
+        getHibernateTemplate().update(apiResHeader);
     }
 
     @Override
     public void delete(APIResHeader apiResHeader) {
-
+        getHibernateTemplate().delete(apiResHeader);
     }
 
     @Override
     public void delete(Long id) {
-
+        getHibernateTemplate().delete(get(id));
     }
 
     @Override
     public List<APIResHeader> findAll() {
-        return null;
+        return (List<APIResHeader>) getHibernateTemplate().find("from APIResHeader");
     }
 
     @Override
     public List<APIResHeader> findByAPI(API api) {
-        return null;
+        return (List<APIResHeader>) getHibernateTemplate().findByNamedParam("from APIResHeader a where a.api=:api","api",api);
     }
 
     @Override
     public List<APIResHeader> findByAPIId(Long id) {
-        return null;
+        return (List<APIResHeader>) getHibernateTemplate().findByNamedParam("from APIResHeader a where a.api.id=:id","id",id);
     }
 
     @Override
     public APIResHeader findUniqByAPI(API api) {
-        return null;
+        List<APIResHeader> apiResHeaderList = (List<APIResHeader>) getHibernateTemplate().findByNamedParam("from APIResHeader a where a.api=:api","api",api);
+        if (apiResHeaderList.size()==0) {
+            return null;
+        }
+        else {
+            return apiResHeaderList.get(0);
+        }
     }
 
     @Override
     public APIResHeader findUniqByAPIId(Long id) {
-        return null;
+        List<APIResHeader> apiResHeaderList = (List<APIResHeader>) getHibernateTemplate().findByNamedParam("from APIResHeader a where a.api.id=:id","id",id);
+        if (apiResHeaderList.size()==0) {
+            return null;
+        }
+        else {
+            return apiResHeaderList.get(0);
+        }
     }
 }

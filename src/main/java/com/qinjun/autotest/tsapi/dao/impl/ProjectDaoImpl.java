@@ -9,31 +9,31 @@ import java.util.List;
 public class ProjectDaoImpl extends HibernateDaoSupport implements IProjectDao {
     @Override
     public Project get(Long id) {
-        return null;
+        return getHibernateTemplate().get(Project.class,id);
     }
 
     @Override
-    public Long save(Project project) {
-        return null;
+    public Long save(Project cs) {
+        return (Long)  getHibernateTemplate().save(cs);
     }
 
     @Override
-    public void update(Project project) {
-
+    public void update(Project cs) {
+        getHibernateTemplate().update(cs);
     }
 
     @Override
-    public void delete(Project project) {
-
+    public void delete(Project cs) {
+        getHibernateTemplate().delete(cs);
     }
 
     @Override
     public void delete(Long id) {
-
+        getHibernateTemplate().delete(get(id));
     }
 
     @Override
     public List<Project> findAll() {
-        return null;
+        return (List<Project>) getHibernateTemplate().find("from Project");
     }
 }

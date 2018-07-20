@@ -9,31 +9,32 @@ import java.util.List;
 public class TestSetDaoImpl extends HibernateDaoSupport implements ITestSetDao {
     @Override
     public TestSet get(Long id) {
-        return null;
+        return getHibernateTemplate().get(TestSet.class,id);
     }
 
     @Override
     public Long save(TestSet testSet) {
-        return null;
+        return (Long)  getHibernateTemplate().save(testSet);
     }
 
     @Override
     public void update(TestSet testSet) {
-
+        getHibernateTemplate().update(testSet);
     }
 
     @Override
     public void delete(TestSet testSet) {
-
+        getHibernateTemplate().delete(testSet);
     }
 
     @Override
     public void delete(Long id) {
-
+        getHibernateTemplate().delete(get(id));
     }
 
     @Override
     public List<TestSet> findAll() {
-        return null;
+        return (List<TestSet>) getHibernateTemplate().find("from TestSet");
     }
+
 }

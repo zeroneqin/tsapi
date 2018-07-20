@@ -10,41 +10,41 @@ import java.util.List;
 public class APIReqAuthDaoImpl extends HibernateDaoSupport implements IAPIReqAuthDao {
     @Override
     public APIReqAuth get(Long id) {
-        return null;
+        return getHibernateTemplate().get(APIReqAuth.class,id);
     }
 
     @Override
     public Long save(APIReqAuth apiReqAuth) {
-        return null;
+        return (Long) getHibernateTemplate().save(apiReqAuth);
     }
 
     @Override
     public void update(APIReqAuth apiReqAuth) {
-
+        getHibernateTemplate().update(apiReqAuth);
     }
 
     @Override
     public void delete(APIReqAuth apiReqAuth) {
-
+        getHibernateTemplate().delete(apiReqAuth);
     }
 
     @Override
     public void delete(Long id) {
-
+        getHibernateTemplate().delete(get(id));
     }
 
     @Override
     public List<APIReqAuth> findAll() {
-        return null;
+        return (List<APIReqAuth>) getHibernateTemplate().find("from APIReqAuth");
     }
 
     @Override
     public List<APIReqAuth> findByAPI(API api) {
-        return null;
+        return (List<APIReqAuth>)  getHibernateTemplate().findByNamedParam("from APIReqAuth as a where a.api=:api","api",api);
     }
 
     @Override
     public List<APIReqAuth> findByAPIId(Long id) {
-        return null;
+        return (List<APIReqAuth>) getHibernateTemplate().findByNamedParam("from APIReqAuth as a where a.api.id=:id","id",id);
     }
 }

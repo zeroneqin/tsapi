@@ -10,51 +10,63 @@ import java.util.List;
 public class TestSetStepRunDaoImpl extends HibernateDaoSupport implements ITestSetStepRunDao {
     @Override
     public TestSetStepRun get(Long id) {
-        return null;
+        return getHibernateTemplate().get(TestSetStepRun.class,id);
     }
 
     @Override
     public Long save(TestSetStepRun testSetStepRun) {
-        return null;
+        return (Long)  getHibernateTemplate().save(testSetStepRun);
     }
 
     @Override
     public void update(TestSetStepRun testSetStepRun) {
-
+        getHibernateTemplate().update(testSetStepRun);
     }
 
     @Override
     public void delete(TestSetStepRun testSetStepRun) {
-
+        getHibernateTemplate().delete(testSetStepRun);
     }
 
     @Override
     public void delete(Long id) {
-
+        getHibernateTemplate().delete(get(id));
     }
 
     @Override
     public List<TestSetStepRun> findAll() {
-        return null;
+        return (List<TestSetStepRun>) getHibernateTemplate().find("from TestSetStepRun");
     }
 
     @Override
     public List<TestSetStepRun> findByStep(Step step) {
-        return null;
+        return (List<TestSetStepRun>) getHibernateTemplate().findByNamedParam("from TestSetStepRun a where a.step=:step","step",step);
     }
 
     @Override
     public List<TestSetStepRun> findByStepId(Long id) {
-        return null;
+        return (List<TestSetStepRun>) getHibernateTemplate().findByNamedParam("from TestSetStepRun a where a.step.id=:id","id",id);
     }
 
     @Override
     public TestSetStepRun findUniqByStep(Step step) {
-        return null;
+        List<TestSetStepRun> testSetStepRunList = (List<TestSetStepRun>) getHibernateTemplate().findByNamedParam("from TestSetStepRun a where a.step=:step","step",step);
+        if (testSetStepRunList.size()==0) {
+            return null;
+        }
+        else {
+            return testSetStepRunList.get(0);
+        }
     }
 
     @Override
     public TestSetStepRun findUniqByStepId(Long id) {
-        return null;
+        List<TestSetStepRun> testSetStepRunList = (List<TestSetStepRun>) getHibernateTemplate().findByNamedParam("from TestSetStepRun a where a.step.id=:id","id",id);
+        if (testSetStepRunList.size()==0) {
+            return null;
+        }
+        else {
+            return testSetStepRunList.get(0);
+        }
     }
 }

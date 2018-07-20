@@ -10,51 +10,63 @@ import java.util.List;
 public class APIReqParamDaoImpl extends HibernateDaoSupport implements IAPIReqParamDao {
     @Override
     public APIReqParam get(Long id) {
-        return null;
+        return getHibernateTemplate().get(APIReqParam.class,id);
     }
 
     @Override
     public Long save(APIReqParam apiReqParam) {
-        return null;
+        return (Long)  getHibernateTemplate().save(apiReqParam);
     }
 
     @Override
     public void update(APIReqParam apiReqParam) {
-
+        getHibernateTemplate().update(apiReqParam);
     }
 
     @Override
     public void delete(APIReqParam apiReqParam) {
-
+        getHibernateTemplate().delete(apiReqParam);
     }
 
     @Override
     public void delete(Long id) {
-
+        getHibernateTemplate().delete(get(id));
     }
 
     @Override
     public List<APIReqParam> findAll() {
-        return null;
+        return (List<APIReqParam>) getHibernateTemplate().find("from APIReqParam");
     }
 
     @Override
     public List<APIReqParam> findByAPI(API api) {
-        return null;
+        return (List<APIReqParam>) getHibernateTemplate().findByNamedParam("from APIReqParam a where a.api=:api","api",api);
     }
 
     @Override
     public List<APIReqParam> findByAPIId(Long id) {
-        return null;
+        return (List<APIReqParam>) getHibernateTemplate().findByNamedParam("from APIReqParam a where a.api.id=:id","id",id);
     }
 
     @Override
     public APIReqParam findUniqByAPI(API api) {
-        return null;
+        List<APIReqParam> apiReqParamList = (List<APIReqParam>) getHibernateTemplate().findByNamedParam("from APIReqParam a where a.api=:api","api",api);
+        if (apiReqParamList.size()==0) {
+            return null;
+        }
+        else {
+            return apiReqParamList.get(0);
+        }
     }
 
     @Override
     public APIReqParam findUniqByAPIId(Long id) {
-        return null;
+        List<APIReqParam> apiReqParamList = (List<APIReqParam>) getHibernateTemplate().findByNamedParam("from APIReqParam a where a.api.id=:id","id",id);
+        if (apiReqParamList.size()==0) {
+            return null;
+        }
+        else {
+            return apiReqParamList.get(0);
+        }
     }
 }

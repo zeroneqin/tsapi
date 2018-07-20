@@ -9,31 +9,33 @@ import java.util.List;
 public class TestSetCaseRunDaoImpl extends HibernateDaoSupport implements ITestSetCaseRunDao {
     @Override
     public TestSetCaseRun get(Long id) {
-        return null;
+        return getHibernateTemplate().get(TestSetCaseRun.class,id);
     }
 
     @Override
     public Long save(TestSetCaseRun testSetCaseRun) {
-        return null;
+        return (Long)  getHibernateTemplate().save(testSetCaseRun);
     }
 
     @Override
     public void update(TestSetCaseRun testSetCaseRun) {
-
+        getHibernateTemplate().update(testSetCaseRun);
     }
 
     @Override
     public void delete(TestSetCaseRun testSetCaseRun) {
-
+        getHibernateTemplate().delete(testSetCaseRun);
     }
 
     @Override
     public void delete(Long id) {
-
+        getHibernateTemplate().delete(get(id));
     }
 
     @Override
     public List<TestSetCaseRun> findAll() {
-        return null;
+        return (List<TestSetCaseRun>) getHibernateTemplate().find("from TestSetCaseRun");
     }
+
+
 }

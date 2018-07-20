@@ -10,36 +10,35 @@ import java.util.List;
 public class TestSetCaseDaoImpl extends HibernateDaoSupport implements ITestSetCaseDao {
     @Override
     public TestSetCase get(Long id) {
-        return null;
+        return getHibernateTemplate().get(TestSetCase.class,id);
     }
 
     @Override
     public Long save(TestSetCase testSetCase) {
-        return null;
+        return (Long)  getHibernateTemplate().save(testSetCase);
     }
 
     @Override
     public void update(TestSetCase testSetCase) {
-
+        getHibernateTemplate().update(testSetCase);
     }
 
     @Override
     public void delete(TestSetCase testSetCase) {
-
+        getHibernateTemplate().delete(testSetCase);
     }
 
     @Override
     public void delete(Long id) {
-
+        getHibernateTemplate().delete(get(id));
     }
 
     @Override
     public List<TestSetCase> findAll() {
-        return null;
+        return (List<TestSetCase>) getHibernateTemplate().find("from TestSetCase");
     }
-
     @Override
     public List<TestSetCase> findByTestSet(TestSet testSet) {
-        return null;
+        return (List<TestSetCase>) getHibernateTemplate().findByNamedParam("from TestSetCase a where a.testSet=:testSet","testSet",testSet);
     }
 }

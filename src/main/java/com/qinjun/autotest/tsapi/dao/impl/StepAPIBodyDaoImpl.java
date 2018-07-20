@@ -10,41 +10,51 @@ import java.util.List;
 public class StepAPIBodyDaoImpl extends HibernateDaoSupport implements IStepAPIBodyDao {
     @Override
     public StepAPIBody get(Long id) {
-        return null;
+        return getHibernateTemplate().get(StepAPIBody.class,id);
     }
 
     @Override
     public Long save(StepAPIBody stepAPIBody) {
-        return null;
+        return (Long)  getHibernateTemplate().save(stepAPIBody);
     }
 
     @Override
     public void update(StepAPIBody stepAPIBody) {
-
+        getHibernateTemplate().update(stepAPIBody);
     }
 
     @Override
     public void delete(StepAPIBody stepAPIBody) {
-
+        getHibernateTemplate().delete(stepAPIBody);
     }
 
     @Override
     public void delete(Long id) {
-
+        getHibernateTemplate().delete(get(id));
     }
 
     @Override
     public List<StepAPIBody> findAll() {
-        return null;
+        return (List<StepAPIBody>) getHibernateTemplate().find("from StepAPIBody");
     }
 
     @Override
     public List<StepAPIBody> findByStep(Step step) {
-        return null;
+        return (List<StepAPIBody>) getHibernateTemplate().findByNamedParam("from StepAPIBody a where a.step=:step","step",step);
     }
 
     @Override
     public StepAPIBody findUniqByStep(Step step) {
-        return null;
+        List<StepAPIBody> stepAPIBodyList = (List<StepAPIBody>) getHibernateTemplate().findByNamedParam("from StepAPIBody a where a.step=:step","step",step);
+        if (stepAPIBodyList.size()==0) {
+            return null;
+        }
+        else {
+            return stepAPIBodyList.get(0);
+        }
     }
+
+
+
+
 }

@@ -10,51 +10,63 @@ import java.util.List;
 public class APIReqBasicDaoImpl extends HibernateDaoSupport implements IAPIReqBasicDao {
     @Override
     public APIReqBasic get(Long id) {
-        return null;
+        return getHibernateTemplate().get(APIReqBasic.class,id);
     }
 
     @Override
     public Long save(APIReqBasic apiReqBasic) {
-        return null;
+        return (Long)  getHibernateTemplate().save(apiReqBasic);
     }
 
     @Override
     public void update(APIReqBasic apiReqBasic) {
-
+        getHibernateTemplate().update(apiReqBasic);
     }
 
     @Override
     public void delete(APIReqBasic apiReqBasic) {
-
+        getHibernateTemplate().delete(apiReqBasic);
     }
 
     @Override
     public void delete(Long id) {
-
+        getHibernateTemplate().delete(get(id));
     }
 
     @Override
     public List<APIReqBasic> findAll() {
-        return null;
+        return (List<APIReqBasic>) getHibernateTemplate().find("from APIReqBasic");
     }
 
     @Override
     public List<APIReqBasic> findByAPI(API api) {
-        return null;
+        return (List<APIReqBasic>) getHibernateTemplate().findByNamedParam("from APIReqBasic a where a.api=:api","api",api);
     }
 
     @Override
     public List<APIReqBasic> findByAPIId(Long id) {
-        return null;
+        return (List<APIReqBasic>) getHibernateTemplate().findByNamedParam("from APIReqBasic a where a.api.id=:id","id",id);
     }
 
     @Override
     public APIReqBasic findUniqByAPI(API api) {
-        return null;
+        List<APIReqBasic> apiReqBasicList = (List<APIReqBasic>) getHibernateTemplate().findByNamedParam("from APIReqBasic a where a.api=:api","api",api);
+        if (apiReqBasicList.size()==0) {
+            return null;
+        }
+        else {
+            return apiReqBasicList.get(0);
+        }
     }
 
     @Override
-    public APIReqBasic findUidByAPIId(Long id) {
-        return null;
+    public APIReqBasic findUniqByAPIId(Long id) {
+        List<APIReqBasic> apiReqBasicList = (List<APIReqBasic>) getHibernateTemplate().findByNamedParam("from APIReqBasic a where a.api.id=:id","id",id);
+        if (apiReqBasicList.size()==0) {
+            return null;
+        }
+        else {
+            return apiReqBasicList.get(0);
+        }
     }
 }

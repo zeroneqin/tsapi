@@ -10,51 +10,63 @@ import java.util.List;
 public class APIReqBodyDaoImpl extends HibernateDaoSupport implements IAPIReqBodyDao {
     @Override
     public APIReqBody get(Long id) {
-        return null;
+        return getHibernateTemplate().get(APIReqBody.class,id);
     }
 
     @Override
     public Long save(APIReqBody apiReqBody) {
-        return null;
+        return (Long)  getHibernateTemplate().save(apiReqBody);
     }
 
     @Override
     public void update(APIReqBody apiReqBody) {
-
+        getHibernateTemplate().update(apiReqBody);
     }
 
     @Override
     public void delete(APIReqBody apiReqBody) {
-
+        getHibernateTemplate().delete(apiReqBody);
     }
 
     @Override
     public void delete(Long id) {
-
+        getHibernateTemplate().delete(get(id));
     }
 
     @Override
     public List<APIReqBody> findAll() {
-        return null;
+        return (List<APIReqBody>) getHibernateTemplate().find("from APIReqBody");
     }
 
     @Override
     public List<APIReqBody> findByAPI(API api) {
-        return null;
+        return (List<APIReqBody>) getHibernateTemplate().findByNamedParam("from APIReqBody a where a.api=:api","api",api);
     }
 
     @Override
     public List<APIReqBody> findByAPIId(Long id) {
-        return null;
+        return (List<APIReqBody>) getHibernateTemplate().findByNamedParam("from APIReqBody a where a.api.id=:id","id",id);
     }
 
     @Override
     public APIReqBody findUniqByAPI(API api) {
-        return null;
+        List<APIReqBody> apiReqBodyList = (List<APIReqBody>) getHibernateTemplate().findByNamedParam("from APIReqBody a where a.api=:api","api",api);
+        if (apiReqBodyList.size()==0) {
+            return null;
+        }
+        else {
+            return apiReqBodyList.get(0);
+        }
     }
 
     @Override
     public APIReqBody findUniqByAPIId(Long id) {
-        return null;
+        List<APIReqBody> apiReqBodyList = (List<APIReqBody>) getHibernateTemplate().findByNamedParam("from APIReqBody a where a.api.id=:id","id",id);
+        if (apiReqBodyList.size()==0) {
+            return null;
+        }
+        else {
+            return apiReqBodyList.get(0);
+        }
     }
 }

@@ -10,36 +10,38 @@ import java.util.List;
 public class StepAPIParamDaoImpl extends HibernateDaoSupport implements IStepAPIParamDao {
     @Override
     public StepAPIParam get(Long id) {
-        return null;
+        return getHibernateTemplate().get(StepAPIParam.class,id);
     }
 
     @Override
     public Long save(StepAPIParam stepAPIParam) {
-        return null;
+        return (Long)  getHibernateTemplate().save(stepAPIParam);
     }
 
     @Override
     public void update(StepAPIParam stepAPIParam) {
-
+        getHibernateTemplate().update(stepAPIParam);
     }
 
     @Override
     public void delete(StepAPIParam stepAPIParam) {
-
+        getHibernateTemplate().delete(stepAPIParam);
     }
 
     @Override
     public void delete(Long id) {
-
+        getHibernateTemplate().delete(get(id));
     }
 
     @Override
     public List<StepAPIParam> findAll() {
-        return null;
+        return (List<StepAPIParam>) getHibernateTemplate().find("from StepAPIParam");
     }
 
     @Override
     public List<StepAPIParam> findByStep(Step step) {
-        return null;
+        return (List<StepAPIParam>) getHibernateTemplate().findByNamedParam("from StepAPIParam a where a.step=:step","step",step);
     }
+
+
 }

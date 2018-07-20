@@ -10,51 +10,63 @@ import java.util.List;
 public class APIResBodyDaoImpl extends HibernateDaoSupport implements IAPIResBodyDao {
     @Override
     public APIResBody get(Long id) {
-        return null;
+        return getHibernateTemplate().get(APIResBody.class,id);
     }
 
     @Override
     public Long save(APIResBody apiResBody) {
-        return null;
+        return (Long)  getHibernateTemplate().save(apiResBody);
     }
 
     @Override
     public void update(APIResBody apiResBody) {
-
+        getHibernateTemplate().update(apiResBody);
     }
 
     @Override
     public void delete(APIResBody apiResBody) {
-
+        getHibernateTemplate().delete(apiResBody);
     }
 
     @Override
     public void delete(Long id) {
-
+        getHibernateTemplate().delete(get(id));
     }
 
     @Override
     public List<APIResBody> findAll() {
-        return null;
+        return (List<APIResBody>) getHibernateTemplate().find("from APIResBody");
     }
 
     @Override
     public List<APIResBody> findByAPI(API api) {
-        return null;
+        return (List<APIResBody>) getHibernateTemplate().findByNamedParam("from APIResBody a where a.api=:api","api",api);
     }
 
     @Override
     public List<APIResBody> findByAPIId(Long id) {
-        return null;
+        return (List<APIResBody>) getHibernateTemplate().findByNamedParam("from APIResBody a where a.api.id=:id","id",id);
     }
 
     @Override
     public APIResBody findUniqByAPI(API api) {
-        return null;
+        List<APIResBody> apiResBodyList = (List<APIResBody>) getHibernateTemplate().findByNamedParam("from APIResBody a where a.api=:api","api",api);
+        if (apiResBodyList.size()==0) {
+            return null;
+        }
+        else {
+            return apiResBodyList.get(0);
+        }
     }
 
     @Override
     public APIResBody findUniqByAPIId(Long id) {
-        return null;
+        List<APIResBody> apiResBodyList = (List<APIResBody>) getHibernateTemplate().findByNamedParam("from APIResBody a where a.api.id=:id","id",id);
+        if (apiResBodyList.size()==0) {
+            return null;
+        }
+        else {
+            return apiResBodyList.get(0);
+        }
     }
 }

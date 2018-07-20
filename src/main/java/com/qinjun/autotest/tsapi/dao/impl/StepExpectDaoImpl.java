@@ -9,39 +9,49 @@ import java.util.List;
 
 
 public class StepExpectDaoImpl extends HibernateDaoSupport implements IStepExpectDao {
-
     @Override
     public StepExpect get(Long id) {
-        return null;
+        return getHibernateTemplate().get(StepExpect.class,id);
     }
 
     @Override
     public Long save(StepExpect stepExpect) {
-        return null;
+        return (Long)  getHibernateTemplate().save(stepExpect);
     }
 
     @Override
     public void update(StepExpect stepExpect) {
-
+        getHibernateTemplate().update(stepExpect);
     }
 
     @Override
     public void delete(StepExpect stepExpect) {
-
+        getHibernateTemplate().delete(stepExpect);
     }
 
     @Override
     public void delete(Long id) {
-
+        getHibernateTemplate().delete(get(id));
     }
 
     @Override
     public List<StepExpect> findAll() {
-        return null;
+        return (List<StepExpect>) getHibernateTemplate().find("from StepExpect");
     }
+
+
+
+
 
     @Override
     public StepExpect findUniqByStep(Step step) {
-        return null;
+        List<StepExpect> stepExpectList = (List<StepExpect>) getHibernateTemplate().findByNamedParam("from StepExpect a where a.step=:step","step",step);
+        if (stepExpectList.size()==0) {
+            return null;
+        }
+        else {
+            return stepExpectList.get(0);
+        }
     }
+
 }
